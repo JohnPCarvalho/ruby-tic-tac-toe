@@ -1,6 +1,6 @@
 class Player
 
-  attr_accessor :player_moves
+  attr_accessor :name, :symbol
 
   def initialize(name, symbol)
     @name = name
@@ -8,7 +8,7 @@ class Player
     @symbol = symbol
   end
 
-  def make_a_move(symbol, place, x, y)
-    place[x][y] = symbol
+  def make_a_move(symbol, board, x, y)
+    board[x][y] = symbol
   end
 end

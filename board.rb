@@ -4,6 +4,8 @@ class Board
   end
 
   def show_board()
-    @board
+    @board.each  do |line|
+      print "#{line} \n"
+    end
   end
 end
