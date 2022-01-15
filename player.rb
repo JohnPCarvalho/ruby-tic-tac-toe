@@ -7,8 +7,4 @@ class Player
     @player_moves = Array.new(5)
     @symbol = symbol
   end
-
-  def make_a_move(symbol, board, x, y)
-    board[x][y] = symbol
-  end
 end
