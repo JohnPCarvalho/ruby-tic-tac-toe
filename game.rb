@@ -2,13 +2,25 @@ require './board'
 require './player'
 
 class Game
+  attr_accessor
+
+  WIN_COMBINATIONS = [
+    [[0][0], [0][1], [0][2]],
+    [[1][0], [1][1], [1][2]],
+    [[2][0], [2][1], [2][2]],
+    [[0][0], [1][0], [2][0]],
+    [[0][1], [1][1], [2][1]],
+    [[0][2], [1][2], [2][2]],
+    [[0][0], [1][1], [2][2]],
+    [[2][0], [1][1], [0][2]]
+  ]
+
   def initialize(board)
     @board = board
     @player1 = Player
     @player2 = Player
     @win = false
     @current_player = Player
-    @turn = 1
   end
 
   def self.game_starter
@@ -36,26 +48,27 @@ class Game
   end
 
   def self.start_game()
+    turn = 1
     board = Board.new
     game = Game.new(board)
     board.show_board
 
-    puts @turn
-    print "This is the turn number #{@turn}! \n"
+    print "This is the turn number #{turn}! \n"
 
     while @win != true do
 
-      if @turn.to_i % 2 != 0
-        @current_player = player1
+      if turn % 2 != 0
+        @current_player = @player1
       else
-        @current_player = 2
+        @current_player = @player2
       end
 
-      puts "#{@current_player.name}, mak  e your move! \n"
+      puts "#{turn}"
+      puts "#{@current_player.name}, make your move! \n"
       game.make_a_move(@current_player)
-      @board.show_board
-      @turn += 1
-      print @turn.to_i
+      board.show_board
+      game.check_board(board, @current_player.symbol)
+      turn += 1
     end
   end
 
@@ -65,8 +78,11 @@ class Game
 
   def stop_game; end
 
-  def check_board
-    # irá procurar
+  def check_board(board, player_symbol)
+    victory = [player_symbol, player_symbol, player_symbol]
+    checked_board = Array.new(3)
+
+    
   end
 
   def make_a_move(player)
