@@ -4,17 +4,6 @@ require './player'
 class Game
   attr_accessor
 
-  WIN_COMBINATIONS = [
-    [[0][0], [0][1], [0][2]],
-    [[1][0], [1][1], [1][2]],
-    [[2][0], [2][1], [2][2]],
-    [[0][0], [1][0], [2][0]],
-    [[0][1], [1][1], [2][1]],
-    [[0][2], [1][2], [2][2]],
-    [[0][0], [1][1], [2][2]],
-    [[2][0], [1][1], [0][2]]
-  ]
-
   def initialize(board)
     @board = board
     @player1 = Player
@@ -82,7 +71,7 @@ class Game
     victory = [player_symbol, player_symbol, player_symbol]
     checked_board = Array.new(3)
 
-    
+
   end
 
   def make_a_move(player)
@@ -91,9 +80,9 @@ class Game
     move_done = false
 
     while move_done == false do
-      puts "first position: \n"
+      puts "Type first position: \n"
       x = gets.chomp.to_i
-      puts "second position: \n"
+      puts "Type second position: \n"
       y = gets.chomp.to_i
 
       if (0..2).include?(x) || (0..2).include?(y)
