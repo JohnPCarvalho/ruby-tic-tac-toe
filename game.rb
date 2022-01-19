@@ -67,11 +67,16 @@ class Game
 
   def stop_game; end
 
-  def check_board(board, player_symbol)
-    victory = [player_symbol, player_symbol, player_symbol]
-    checked_board = Array.new(3)
-
-
+  def check_board(player_symbol)
+    # horizontais
+    if @board.board[0] == [player_symbol, player_symbol, player_symbol]
+    elsif @board.board[1] == [player_symbol, player_symbol, player_symbol]
+    elsif @board.board[2] == [player_symbol, player_symbol, player_symbol]
+    else
+      @board.board.each_with_index do |item, index|
+        @board.board[]
+      end
+    end
   end
 
   def make_a_move(player)
