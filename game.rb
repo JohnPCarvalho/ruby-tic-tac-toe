@@ -68,14 +68,13 @@ class Game
   def stop_game; end
 
   def check_board(player_symbol)
-    # horizontais
-    if @board.board[0] == [player_symbol, player_symbol, player_symbol]
-    elsif @board.board[1] == [player_symbol, player_symbol, player_symbol]
-    elsif @board.board[2] == [player_symbol, player_symbol, player_symbol]
-    else
-      @board.board.each_with_index do |item, index|
-        @board.board[]
-      end
+    count = 0
+    # horizontal check
+    @board.board.each_with_index do |item1, index1|
+      @board.board.each_with_index do |item2, index2|
+        if @board.board[index1][index2] == player_symbol
+          count += 1
+        end
     end
   end
 
