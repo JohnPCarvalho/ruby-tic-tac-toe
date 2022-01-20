@@ -45,36 +45,23 @@ class Game
     print "This is the turn number #{turn}! \n"
 
     while @win != true do
-
       if turn % 2 != 0
         @current_player = @player1
       else
         @current_player = @player2
       end
 
-      puts "#{turn}"
       puts "#{@current_player.name}, make your move! \n"
       game.make_a_move(@current_player)
       board.show_board
-      game.check_board(board, @current_player.symbol)
+      game.check_board(@current_player.symbol)
       turn += 1
     end
   end
 
-  def change_turn(player)
-    @turn = player
-  end
-
-  def stop_game; end
-
   def check_board(player_symbol)
-    count = 0
-    # horizontal check
-    @board.board.each_with_index do |item1, index1|
-      @board.board.each_with_index do |item2, index2|
-        if @board.board[index1][index2] == player_symbol
-          count += 1
-        end
+    if horizontal_check(player_symbol) || vertical_check(player_symbol) || diagonal_1_check(player_symbol) || diagonal_2_check(player_symbol)
+      @win = true
     end
   end
 
@@ -102,8 +89,68 @@ class Game
     end
   end
 
-  def check_move
+  def horizontal_check(player_symbol)
+    count = 0
+
+    @board.board.each_with_index do |item1, index1|
+      if count == 3
+        return true
+      else
+        count = 0
+      end
+      @board.board.each_with_index do |item2, index2|
+        if @board.board[index1][index2] == player_symbol
+          count +=1
+        end
+      end
+    end
   end
+
+  def vertical_check(player_symbol)
+    count = 0
+      @board.board.each_with_index do |item1, index1|
+        if count == 3
+          return true
+        else
+          count = 0
+        end
+      @board.board.each_with_index do |item2, index2|
+        if @board.board[index2][index1] == player_symbol
+          count += 1
+        end
+      end
+  end
+
+  def diagonal_1_check(player_symbol)
+    x = 0
+    y = 0
+    while x < 3 do
+      if @board.board[x][y] == player_symbol
+        count += 1
+        x += 1
+        y -= 1
+      end
+      if count == 3
+        return true
+      end
+    end
+  end
+
+  def diagonal_2_check(player_symbol)
+    x = 0
+    y = 0
+    while x < 3 do
+      if @board.board[x][y] == player_symbol
+        count += 1
+        x += 1
+        y += 1
+      end
+      if count == 3
+        return true
+      end
+    end
+  end
+end
 end
 
 Game.game_starter
