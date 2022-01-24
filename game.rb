@@ -42,8 +42,6 @@ class Game
     game = Game.new(board)
     board.show_board
 
-    print "This is the turn number #{turn}! \n"
-
     while @win != true do
       if turn % 2 != 0
         @current_player = @player1
@@ -51,17 +49,26 @@ class Game
         @current_player = @player2
       end
 
+      print "This is the turn number #{turn}! \n"
       puts "#{@current_player.name}, make your move! \n"
       game.make_a_move(@current_player)
       board.show_board
-      game.check_board(@current_player.symbol)
+      if game.check_board(@current_player.symbol) == true
+        @win = true
+      else
+        puts "go on"
+      end
       turn += 1
     end
+
+    print "#{@current_player} wins!"
   end
 
   def check_board(player_symbol)
-    if horizontal_check(player_symbol) || vertical_check(player_symbol) || diagonal_1_check(player_symbol) || diagonal_2_check(player_symbol)
-      @win = true
+    if vertical_check(player_symbol) || horizontal_check(player_symbol) || diagonal_1_check(player_symbol) || diagonal_2_check(player_symbol)
+      return true
+    else
+      return false
     end
   end
 
@@ -94,6 +101,7 @@ class Game
 
     @board.board.each_with_index do |item1, index1|
       if count == 3
+        puts "horizontal true"
         return true
       else
         count = 0
@@ -110,6 +118,7 @@ class Game
     count = 0
       @board.board.each_with_index do |item1, index1|
         if count == 3
+          puts "vertical true"
           return true
         else
           count = 0
@@ -131,6 +140,7 @@ class Game
         y -= 1
       end
       if count == 3
+        puts "diagonal 1 true"
         return true
       end
     end
@@ -146,6 +156,7 @@ class Game
         y += 1
       end
       if count == 3
+        puts "diagonal 2 true"
         return true
       end
     end
