@@ -49,19 +49,21 @@ class Game
         @current_player = @player2
       end
 
+      if turn > 4
+        puts "checa tabuleiro"
+        if game.check_board(@current_player.symbol) == true
+          @win = true
+        end
+      end
+
       print "This is the turn number #{turn}! \n"
       puts "#{@current_player.name}, make your move! \n"
       game.make_a_move(@current_player)
       board.show_board
-      if game.check_board(@current_player.symbol) == true
-        @win = true
-      else
-        puts "go on"
-      end
       turn += 1
     end
 
-    print "#{@current_player} wins!"
+    puts "#{@current_player.name} wins!"
   end
 
   def check_board(player_symbol)
@@ -83,17 +85,21 @@ class Game
       puts "Type second position: \n"
       y = gets.chomp.to_i
 
-      if (0..2).include?(x) || (0..2).include?(y)
-        if @board.board[x][y] != ""
-          "Invalid move. The houses [#{x}][#{y}] are already populated"
-        else
-          @board.board[x][y] = player.symbol
-          move_done = true
-        end
+      if x > 2 || y > 2
+        puts "invalid input, remember that the positions range from 0 to 2."
       else
-        puts "Invalid numbers. They must be 0, 1 or 2"
+        if (0..2).include?(x) || (0..2).include?(y)
+          if @board.board[x][y] != ""
+            "Invalid move. The houses [#{x}][#{y}] are already populated"
+          else
+            @board.board[x][y] = player.symbol
+            move_done = true
+          end
+        else
+          puts "Invalid numbers. They must be 0, 1 or 2"
+        end
       end
-    end
+      end
   end
 
   def horizontal_check(player_symbol)
