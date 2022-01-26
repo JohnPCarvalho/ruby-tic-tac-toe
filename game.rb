@@ -50,7 +50,6 @@ class Game
       end
 
       if turn > 4
-        puts "checa tabuleiro"
         if game.check_board(@current_player.symbol) == true
           @win = true
         end
